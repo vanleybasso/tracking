@@ -406,5 +406,8 @@ body {
     margin: 10px auto;
     height: 40px;
   }
-}
 
+  .botao-grade {
+    display: none;
+  }
+}
