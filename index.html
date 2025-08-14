@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viagens em Andamento</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <img src="/imagens/calcario-foscarini.png" alt="Logo da Empresa" class="logo-empresa">
+  
+  <h1 class="titulo-pagina">Viagens em Andamento</h1>
+
+  <div class="controles">
+    <div class="filtros-container">
+      <div class="filtros">
+        <button class="botao-filtro ativo" data-filtro="todos">Todas as viagens</button>
+        <button class="botao-filtro" data-filtro="ida">Viagens de ida</button>
+        <button class="botao-filtro" data-filtro="retorno">Viagens de retorno</button>
+        
+        <div class="filtro-retorno-hoje">
+          <input type="checkbox" id="filtroRetornoHoje">
+          <label for="filtroRetornoHoje">Retornos para hoje</label>
+        </div>
+      </div>
+      
+      <div class="barra-pesquisa">
+        <input type="text" id="campoPesquisa" placeholder="Pesquisar por placa ou destino...">
+      </div>
+    </div>
+    
+    <button class="botao-grade" id="botaoGrade">Mudar visualização</button>
+  </div>
+
+  <div class="container-carrossel">
+    <div class="container-viagens" id="containerViagens">
+      <!-- Viagens serão inseridas aqui pelo JavaScript -->
+    </div>
+  </div>
+
+  <div class="controles-carrossel" id="controlesCarrossel">
+    <!-- Botões do carrossel serão inseridos aqui -->
+  </div>
+
+  <div class="contador-carrossel" id="contadorCarrossel">
+    <!-- Contador será atualizado aqui -->
+  </div>
+
+  
+
+  <script src="scripts/script.js"></script>
+</body>
+</html>

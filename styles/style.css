@@ -1,0 +1,410 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 5px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filtros-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filtros {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.botao-filtro {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.botao-filtro.ativo {
+  background: #0070cc;
+  color: white;
+  border-color: #0070cc;
+}
+
+.botao-filtro.ativo.retorno {
+  background: #2d8b2d;
+  border-color: #2d8b2d;
+}
+
+.botao-grade {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.botao-grade:hover {
+  background: #f5f5f5;
+}
+
+.botao-grade:active {
+  transform: scale(0.98);
+  background: #e6e6e6;
+}
+
+.titulo-pagina {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 15px 0 20px 5px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #b6b7b8;
+}
+
+.container-carrossel {
+  position: relative;
+  overflow: hidden;
+}
+
+.container-viagens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  transition: all 0.5s ease;
+}
+
+.container-viagens.tres-colunas {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-viagens.quatro-colunas {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.viagem {
+  background: white;
+  border-radius: 6px;
+  padding: 8px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.destino {
+  font-weight: bold;
+  color: #2d8b2d;
+  border: 1.5px solid #2d8b2d;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 15px;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.viagem.ida .destino {
+  color: #0070cc;
+  border-color: #0070cc;
+}
+
+.info-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.codigo {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.placa {
+  background: #c33;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.datas {
+  color: #555;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.status {
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.em-transito {
+  background: #e6f0ff;
+  color: #0070cc;
+}
+.em-retorno {
+  background: #eaffea;
+  color: #2d8b2d;
+}
+
+.linha-progresso {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.ponto {
+  text-align: center;
+  width: 65px;
+}
+.ponto .nome {
+  font-weight: bold;
+  font-size: 12px;
+}
+.ponto .hora {
+  font-size: 10px;
+  color: #666;
+}
+
+.logo-empresa {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+  height: 40px;
+  width: auto;
+}
+
+.barra {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  position: relative;
+}
+.barra.ida {
+  background: linear-gradient(to right, #0070cc var(--progresso), #e0e0e0 var(--progresso));
+}
+.barra.retorno {
+  background: linear-gradient(to right, #2d8b2d var(--progresso), #e0e0e0 var(--progresso));
+}
+
+.bolinha-atual {
+  position: absolute;
+  top: -6px;
+  left: var(--progresso);
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid;
+  z-index: 2;
+}
+.barra.ida .bolinha-atual {
+  border-color: #0070cc;
+}
+.barra.retorno .bolinha-atual {
+  border-color: #2d8b2d;
+}
+
+.bolinha-atual::after {
+  content: "➔ ➔ ➔ ➔";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: flechasAndando 0.8s linear infinite;
+}
+.barra.ida .bolinha-atual::after {
+  color: #0070cc;
+}
+.barra.retorno .bolinha-atual::after {
+  color: #2d8b2d;
+}
+
+/* Classes para diferentes quantidades de flechas */
+.flechas-3::after {
+  content: "➔ ➔ ➔" !important;
+}
+.flechas-2::after {
+  content: "➔ ➔" !important;
+}
+.flechas-1::after {
+  content: "➔" !important;
+}
+
+@keyframes flechasAndando {
+  0% { transform: translate(0, -50%); opacity: 0.3; }
+  50% { transform: translate(3px, -50%); opacity: 1; }
+  100% { transform: translate(6px, -50%); opacity: 0.3; }
+}
+
+.ultima-atualizacao {
+  position: absolute;
+  top: 14px;
+  left: var(--progresso);
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #555;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Barra de pesquisa */
+.barra-pesquisa {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.barra-pesquisa input {
+  padding: 8px 15px 8px 35px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  width: 200px;
+  transition: all 0.3s;
+}
+
+.barra-pesquisa input:focus {
+  outline: none;
+  border-color: #0070cc;
+  box-shadow: 0 0 0 2px rgba(0, 112, 204, 0.2);
+  width: 250px;
+}
+
+.barra-pesquisa::before {
+  content: "🔍";
+  position: absolute;
+  left: 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Checkbox de retornos para hoje */
+.filtro-retorno-hoje {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.filtro-retorno-hoje input {
+  margin: 0;
+}
+
+.filtro-retorno-hoje label {
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Controles do carrossel */
+.controles-carrossel {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.botao-carrossel {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.botao-carrossel:hover {
+  background: #f5f5f5;
+}
+
+.botao-carrossel.ativo {
+  background: #0070cc;
+  color: white;
+  border-color: #0070cc;
+}
+
+.contador-carrossel {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container-viagens {
+    grid-template-columns: 1fr;
+  }
+  
+  .container-viagens.tres-colunas,
+  .container-viagens.quatro-colunas {
+    grid-template-columns: 1fr;
+  }
+  
+  .controles {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .filtros-container {
+    width: 100%;
+  }
+  
+  .filtros {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .filtro-retorno-hoje {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+  
+  .barra-pesquisa {
+    width: 100%;
+  }
+  
+  .barra-pesquisa input {
+    width: 100%;
+  }
+  
+  .barra-pesquisa input:focus {
+    width: 100%;
+  }
+
+  .logo-empresa {
+    position: static;
+    display: block;
+    margin: 10px auto;
+    height: 40px;
+  }
+}
+
