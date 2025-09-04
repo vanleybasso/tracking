@@ -1,54 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viagens em Andamento</title>
-  <link rel="icon" href="/imagens/calcario-foscarini.png" type="image/png">
- <link rel="stylesheet" href="/styles/style.css">
-</head>
-<body>
-  <img src="/imagens/calcario-foscarini.png" alt="Logo da Empresa" class="logo-empresa">
-  
-  <h1 class="titulo-pagina">Viagens em Andamento</h1>
+  <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viagens em Andamento</title>
+    <link rel="icon" href="/imagens/calcario-foscarini.png" type="image/png">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </head>
+  <body>
+    <img src="/imagens/rotasystem.png" alt="Logo da Empresa" class="logo-empresa">
+    
+    <h1 class="titulo-pagina">Viagens em Andamento</h1>
 
-  <div class="controles">
-    <div class="filtros-container">
-      <div class="filtros">
-        <button class="botao-filtro ativo" data-filtro="todos">Todas as viagens</button>
-        <button class="botao-filtro" data-filtro="ida">Viagens de ida</button>
-        <button class="botao-filtro" data-filtro="retorno">Viagens de retorno</button>
+    <div class="controles">
+      <div class="filtros-container">
+        <div class="filtros">
+          <button class="botao-filtro ativo" data-filtro="todos">Todas as viagens</button>
+          <button class="botao-filtro" data-filtro="ida">Viagens de ida</button>
+          <button class="botao-filtro" data-filtro="retorno">Viagens de retorno</button>
+          
+          <div class="filtro-retorno-hoje">
+            <input type="checkbox" id="filtroRetornoHoje">
+            <label for="filtroRetornoHoje">Retornos para hoje</label>
+          </div>
+        </div>
         
-        <div class="filtro-retorno-hoje">
-          <input type="checkbox" id="filtroRetornoHoje">
-          <label for="filtroRetornoHoje">Retornos para hoje</label>
+        <div class="barra-pesquisa">
+          <input type="text" id="campoPesquisa" placeholder="Pesquisar por placa ou destino...">
         </div>
       </div>
       
-      <div class="barra-pesquisa">
-        <input type="text" id="campoPesquisa" placeholder="Pesquisar por placa ou destino...">
+      <button class="botao-grade" id="botaoGrade">Mudar visualização</button>
+    </div>
+
+    <div class="container-carrossel">
+      <div class="container-viagens" id="containerViagens">
+        <!-- Viagens serão inseridas aqui pelo JavaScript -->
       </div>
     </div>
-    
-    <button class="botao-grade" id="botaoGrade">Mudar visualização</button>
-  </div>
 
-  <div class="container-carrossel">
-    <div class="container-viagens" id="containerViagens">
-      <!-- Viagens serão inseridas aqui pelo JavaScript -->
+    <div class="controles-carrossel" id="controlesCarrossel">
+      <!-- Botões do carrossel serão inseridos aqui -->
     </div>
-  </div>
 
-  <div class="controles-carrossel" id="controlesCarrossel">
-    <!-- Botões do carrossel serão inseridos aqui -->
-  </div>
+    <div class="contador-carrossel" id="contadorCarrossel">
+      <!-- Contador será atualizado aqui -->
+    </div>
 
-  <div class="contador-carrossel" id="contadorCarrossel">
-    <!-- Contador será atualizado aqui -->
-  </div>
+    <!-- Modal para detalhes da viagem -->
+    <div class="modal" id="modalViagem">
+      <div class="modal-conteudo">
+        <div class="modal-cabecalho">
+          <h2 id="modalTitulo">Detalhes da Viagem</h2>
+          <span class="modal-fechar" id="modalFechar">&times;</span>
+        </div>
+        <div class="modal-corpo">
+          <div class="info-viagem-modal">
+            <div class="info-item">
+              <span class="info-label">Código:</span>
+              <span id="modalCodigo"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Placa:</span>
+              <span id="modalPlaca"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Destino:</span>
+              <span id="modalDestino"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Saída:</span>
+              <span id="modalSaida"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Previsão de Chegada:</span>
+              <span id="modalChegada"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status:</span>
+              <span id="modalStatus"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Última Atualização:</span>
+              <span id="modalAtualizacao"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Progresso:</span>
+              <span id="modalProgresso"></span>
+            </div>
+          </div>
+          
+          <div class="mapa-container">
+            <div id="mapaRastro" class="mapa-rastro"></div>
+          </div>
+          
+          <div class="timeline-viagem">
+            <h3>Histórico de Posições</h3>
+            <div id="timelineLista" class="timeline-lista">
+              <!-- Itens da timeline serão inseridos aqui -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  
+    
+    
 
-  <script src="scripts/script.js"></script>
-</body>
-</html>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="scripts/script.js"></script>
+  </body>
+  </html>
